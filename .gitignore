@@ -1,1 +1,6 @@
-RabbitProject.iml
+# Maven #
+target/
+
+# IDEA #
+.idea/
+*.xml
