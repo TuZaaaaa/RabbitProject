@@ -67,4 +67,17 @@ public class User {
     public void setUserFlag(String userFlag) {
         this.userFlag = userFlag;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userTelephone='" + userTelephone + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userAddress='" + userAddress + '\'' +
+                ", userFlag='" + userFlag + '\'' +
+                '}';
+    }
 }

@@ -20,7 +20,13 @@
 <%@include file="nav.jsp"%>
 <body>
     <h1>这是我的主页</h1>
-    <p>您好【<%=((User) session.getAttribute("user")).getUserName()%>】</p>
-    <p id="msg"></p>
+    <%
+        if(session.getAttribute("user") != null) {
+            %>
+        <p>您好【<%=((User) session.getAttribute("user")).getUserName()%>】</p>
+        <p id="msg"></p>
+    <%
+        }
+    %>
 </body>
 </html>

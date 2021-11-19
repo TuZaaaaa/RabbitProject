@@ -28,6 +28,6 @@ window.onload = function () {
     }
 
     setInterval(function () {
-        msg.innerHTML = '现在是：' + todayTime()
+        document.getElementById('showTime').innerHTML = '现在是：' + todayTime()
     }, 1000)
 }

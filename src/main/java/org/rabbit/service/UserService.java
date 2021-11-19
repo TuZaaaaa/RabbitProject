@@ -49,6 +49,7 @@ public class UserService extends HttpServlet {
             String userPassword = req.getParameter("user_password");
             String userFlag = req.getParameter("user_flag");
             String safeCode = req.getParameter("safe_code");
+
             // 1. 判断验证码
             if (safeCode.equalsIgnoreCase((String) session.getAttribute("safeCode"))) {
                 // 2. 判断账号和密码
@@ -60,7 +61,9 @@ public class UserService extends HttpServlet {
                 user = userDao.login(user);
                 if(user != null) {
                     // success jump to index
-                    resp.sendRedirect("index.jsp");
+                    session.setAttribute("user", user);
+                    resp.sendRedirect("indexFrame.jsp");
+                    return;
                 } else {
                     // unsuccess jump to login 用 session 封装错误信息
                     session.setAttribute("info", "账号或密码错误");
