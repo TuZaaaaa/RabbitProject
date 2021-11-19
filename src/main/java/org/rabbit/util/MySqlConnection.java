@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class MySqlConnection {
 
     private static String ClassName = "com.mysql.cj.jdbc.Driver";
-    private static String url = "jdbc:mysql://localhost:3306/db_bloom?useUnicode=true&&characterEncoding=utf-8";
+    private static String url = "jdbc:mysql://localhost:3306/db_bloom?useUnicode=true&&characterEncoding=utf-8&&serverTimezone=UTC";
     private static String user = "root";
     private static String pwd = "root";
     private static Connection conn = null;
