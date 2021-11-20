@@ -62,7 +62,7 @@ public class UserService extends HttpServlet {
                 if(user != null) {
                     // success jump to index
                     session.setAttribute("user", user);
-                    resp.sendRedirect("indexFrame.jsp");
+                    resp.sendRedirect("index.jsp");
                     return;
                 } else {
                     // unsuccess jump to login 用 session 封装错误信息

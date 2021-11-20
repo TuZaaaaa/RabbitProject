@@ -24,9 +24,11 @@
 <div id="menu-overlay">
     <ul>
         <li><a href="#">主页</a></li>
-        <li><a href="#">个人信息</a></li>
-        <li><a href="#">花</a></li>
-        <li><a href="#">订单</a></li>
+        <li><a href="#">鲜花管理</a></li>
+        <li><a href="#">鲜花种类管理</a></li>
+        <li><a href="#">供应商管理</a></li>
+        <li><a href="#">用户信息管理</a></li>
+        <li><a href="#">订单管理</a></li>
         <li><a href="login.jsp">退出</a></li>
     </ul>
 </div>

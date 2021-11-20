@@ -59,7 +59,7 @@
     <%-- 验证用户是否登录 --%>
     <%@include file="checkUserLogin.jsp"%>
     <div class="box">
-        <div class="title"><a href="index.jsp" target="top">首页</a></div>
+        <div class="title"><a href="window.jsp" target="top">首页</a></div>
     </div>
     <div class="box">
         <div class="title" onclick="showHide(m1)">鲜花管理</div>

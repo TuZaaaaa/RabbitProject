@@ -1,32 +1,32 @@
 <%@ page import="org.rabbit.vo.User" %><%--
   Created by IntelliJ IDEA.
   User: Rabbit
-  Date: 2021/11/18
-  Time: 7:40
+  Date: 2021/11/19
+  Time: 22:11
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<html>
-<head>
-    <title>Title</title>
-    <base href="http://localhost:8080/Flower/">
-    <script src="static/js/date.js"></script>
-</head>
-    <script>
-        function changeImage() {
-            document.getElementById('safeCode').src = 'safeCode?rnd=' + Math.random() * 100
-        }
-    </script>
-<%@include file="nav.jsp"%>
-<body>
-    <h1>这是我的主页</h1>
-    <%
-        if(session.getAttribute("user") != null) {
-            %>
-        <p>您好【<%=((User) session.getAttribute("user")).getUserName()%>】</p>
-        <p id="msg"></p>
-    <%
-        }
-    %>
-</body>
-</html>
+<%@ include file="sidebar1.jsp"%>
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    p {
+        text-align: right;
+    }
+</style>
+<script src="static/js/date.js"></script>
+<%@include file="checkUserLogin.jsp"%>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <h1 class="page-header">花店后台管理系统</h1>
+            <p>
+                <span>欢迎【<%=((User) session.getAttribute("user")).getUserName()%>】</span>
+                <span id="showTime"></span>
+            </p>
+        </div>
+    </div>
+</div>
+<%@ include file="sidebar2.jsp"%>
