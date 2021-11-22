@@ -167,10 +167,6 @@
         padding-top: 7px;
     }
 
-    .more-padding {
-        padding-top: 35px;
-    }
-
     .more-padding input {
         padding: 12px;
     }
@@ -279,15 +275,6 @@
 </script>
 
 <body>
-<%
-    String info = (String) session.getAttribute("info");
-    if(info != null) {
-        %>
-    <p><%=info%></p>
-<%
-    }
-    session.removeAttribute("info");
-%>
 <div class="container">
     <div class="welcome">
         <div class="pink-box">
@@ -306,13 +293,22 @@
             <!-- 登录 -->
             <div class="login">
                 <h1>Sign In</h1>
+                <%
+                    String info = (String) session.getAttribute("info");
+                    if(info != null) {
+                %>
+                <p><%=info%></p>
+                <%
+                    }
+                    session.removeAttribute("info");
+                %>
                 <form action="userService?action=login" method="post" class="more-padding" autocomplete="off">
                     <input type="text" name="user_name" placeholder="请输入用户名" required>
                     <input type="password" name="user_password" placeholder="请输入密码" required>
                     <span class="user">
                         <input type="radio" id="user_admin" name="user_flag" value="1">
                         <label for="user_admin">管理员</label>
-                        <input type="radio" id="user_flag" name="user_flag" value="1" checked="checked">
+                        <input type="radio" id="user_flag" name="user_flag" value="0" checked="checked">
                         <label for="user_flag">用户</label>
                     </span>
                     <span class="code">

@@ -47,7 +47,7 @@ public class UserService extends HttpServlet {
             // 接收数据
             String userName = req.getParameter("user_name");
             String userPassword = req.getParameter("user_password");
-            String userFlag = req.getParameter("user_flag");
+            int userFlag = Integer.parseInt(req.getParameter("user_flag"));
             String safeCode = req.getParameter("safe_code");
 
             // 1. 判断验证码

@@ -15,11 +15,15 @@
 
     <link rel="stylesheet"  type="text/css" href="https://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="static/css/sidebar.css">
-
+    <style>
+        #page-content-wrapper {
+            background-color: #ce7d88;
+        }
+    </style>
 </head>
 <body>
 
-<div id="wrapper">
+<div id="wrapper" style="margin-top: -60px">
     <div class="overlay"></div>
 
     <!-- Sidebar -->
@@ -52,13 +56,10 @@
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-fw fa-bank"></i>用户信息管理</a>
-            </li>
-            <li>
                 <a href="#"><i class="fa fa-fw fa-dropbox"></i>订单管理</a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-fw fa-twitter"></i>退出系统</a>
+                <a href="login.jsp"><i class="fa fa-fw fa-twitter"></i>退出系统</a>
             </li>
         </ul>
     </nav>

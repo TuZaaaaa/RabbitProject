@@ -10,7 +10,20 @@ public class User {
     private String userTelephone;
     private String userEmail;
     private String userAddress;
-    private String userFlag;
+    private int userFlag;
+
+    public User() {
+    }
+
+    public User(Integer userId, String userName, String userPassword, String userTelephone, String userEmail, String userAddress, int userFlag) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.userTelephone = userTelephone;
+        this.userEmail = userEmail;
+        this.userAddress = userAddress;
+        this.userFlag = userFlag;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -60,11 +73,11 @@ public class User {
         this.userAddress = userAddress;
     }
 
-    public String getUserFlag() {
+    public int getUserFlag() {
         return userFlag;
     }
 
-    public void setUserFlag(String userFlag) {
+    public void setUserFlag(int userFlag) {
         this.userFlag = userFlag;
     }
 
@@ -77,7 +90,7 @@ public class User {
                 ", userTelephone='" + userTelephone + '\'' +
                 ", userEmail='" + userEmail + '\'' +
                 ", userAddress='" + userAddress + '\'' +
-                ", userFlag='" + userFlag + '\'' +
+                ", userFlag=" + userFlag +
                 '}';
     }
 }

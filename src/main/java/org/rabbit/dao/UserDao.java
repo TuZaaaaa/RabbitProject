@@ -32,7 +32,7 @@ public class UserDao {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getUserName());
             preparedStatement.setString(2, user.getUserPassword());
-            preparedStatement.setString(3, user.getUserFlag());
+            preparedStatement.setInt(3, user.getUserFlag());
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 System.out.println("登录成功");

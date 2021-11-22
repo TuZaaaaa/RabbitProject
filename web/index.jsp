@@ -15,6 +15,13 @@
     p {
         text-align: right;
     }
+
+    iframe {
+        width: 1300px;
+        height: 650px;
+        border-radius: 50px;
+        border: 5px solid #bfb1c9;
+    }
 </style>
 <script src="static/js/date.js"></script>
 <%@include file="checkUserLogin.jsp"%>
@@ -28,5 +35,6 @@
             </p>
         </div>
     </div>
+    <iframe src="flowerTable.jsp" frameborder="0"></iframe>
 </div>
 <%@ include file="sidebar2.jsp"%>

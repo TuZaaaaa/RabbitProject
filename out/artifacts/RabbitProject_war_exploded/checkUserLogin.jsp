@@ -15,7 +15,6 @@
         // 验证用户登录
         User user = (User) session.getAttribute("user");
         System.out.println(user);
-        System.out.println(user.getUserName());
         if(user == null) {
             response.sendRedirect("login.jsp");
             out.print("<script>top.location.href='login.jsp'</script>");
