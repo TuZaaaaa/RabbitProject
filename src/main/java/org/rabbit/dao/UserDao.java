@@ -27,7 +27,7 @@ public class UserDao {
             if (connection == null || connection.isClosed()) {
                 connection = MySqlConnection.getConnection();
             }
-            sql = "select * from db_user where user_name = ? and user_password = ? and user_flag = ?";
+            sql = "select * from tb_user where user_name = ? and user_password = ? and user_flag = ?";
             System.out.println(sql);
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getUserName());

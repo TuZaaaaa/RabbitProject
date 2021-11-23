@@ -69,7 +69,7 @@ public class UserService extends HttpServlet {
                     session.setAttribute("info", "账号或密码错误");
                     resp.sendRedirect("login.jsp");
                 }
-                session.setAttribute("user", user);
+                session.removeAttribute("user");;
             } else {
                 session.setAttribute("info", "验证码错误");
                 resp.sendRedirect("login.jsp");

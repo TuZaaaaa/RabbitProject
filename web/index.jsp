@@ -35,6 +35,18 @@
             </p>
         </div>
     </div>
-    <iframe src="flowerTable.jsp" frameborder="0"></iframe>
+    <iframe src="" frameborder="0"></iframe>
 </div>
 <%@ include file="sidebar2.jsp"%>
+<script>
+    $(function() {
+        toggleFrame('.home', '')
+        toggleFrame('.flower', 'flowerService?action=queryAll')
+    })
+
+    function toggleFrame(target, src) {
+        $(target).click(function() {
+            $("iframe",parent.document.body).attr("src", src)
+        })
+    }
+</script>

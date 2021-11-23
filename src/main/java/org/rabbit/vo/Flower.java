@@ -8,11 +8,24 @@ import java.math.BigDecimal;
 public class Flower {
     private Integer flowerId;
     private String flowerName;
-    private String flowerType;
+    private int typeId;
     private BigDecimal flowerPrice;
     private int flowerStock;
     private int flowerSell;
-    private String flowerSupplier;
+    private int SupplierId;
+
+    public Flower() {
+    }
+
+    public Flower(Integer flowerId, String flowerName, int typeId, BigDecimal flowerPrice, int flowerStock, int flowerSell, int supplierId) {
+        this.flowerId = flowerId;
+        this.flowerName = flowerName;
+        this.typeId = typeId;
+        this.flowerPrice = flowerPrice;
+        this.flowerStock = flowerStock;
+        this.flowerSell = flowerSell;
+        SupplierId = supplierId;
+    }
 
     public Integer getFlowerId() {
         return flowerId;
@@ -30,12 +43,12 @@ public class Flower {
         this.flowerName = flowerName;
     }
 
-    public String getFlowerType() {
-        return flowerType;
+    public int getTypeId() {
+        return typeId;
     }
 
-    public void setFlowerType(String flowerType) {
-        this.flowerType = flowerType;
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
     }
 
     public BigDecimal getFlowerPrice() {
@@ -62,11 +75,11 @@ public class Flower {
         this.flowerSell = flowerSell;
     }
 
-    public String getFlowerSupplier() {
-        return flowerSupplier;
+    public int getSupplierId() {
+        return SupplierId;
     }
 
-    public void setFlowerSupplier(String flowerSupplier) {
-        this.flowerSupplier = flowerSupplier;
+    public void setSupplierId(int supplierId) {
+        SupplierId = supplierId;
     }
 }

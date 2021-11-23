@@ -33,14 +33,10 @@
                 <a href="#">花店后台管理</a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-fw fa-home"></i>主页</a>
+                <a href="#" class="home"><i class="fa fa-fw fa-home"></i>主页</a>
             </li>
             <li>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i> 鲜花管理<span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li class="dropdown-header">Action</li>
-                    <li><a href="#">鲜花添加</a></li>
-                </ul>
+                <a href="#" class="flower"><i class="fa fa-fw fa-cog"></i>鲜花管理</a>
             </li>
             <li>
                 <a href="#"><i class="fa fa-fw fa-file-o"></i>鲜花种类管理</a>
