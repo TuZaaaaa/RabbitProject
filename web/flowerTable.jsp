@@ -213,19 +213,31 @@
                 <form action="${pageContext.request.contextPath}/flowerService?action=add" method="post">
                     <div class="modal-body">
                         <label for="flower-id">鲜花id:</label>
-                        <input type="text" id="flower-id" name="flower-id" class="input-group">
+                        <input type="text" id="flower-id" name="flower-id" class="input-group" value="<%=flowerList.size() + 1000%>">
                         <label for="flower-name">鲜花名称:</label>
                         <input type="text" id="flower-name" name="flower-name" class="input-group">
-                        <label for="type-id">鲜花类型id:</label>
-                        <input type="text" id="type-id" name="type-id" class="input-group">
+                        <label>鲜花类型:</label>
+                        <select class="form-select-button input-group" name="type-id">
+                            <option value="1000">草本植物</option>
+                            <option value="1001">木本植物</option>
+                            <option value="1002">藤本植物</option>
+                            <option value="1003">球根植物</option>
+                            <option value="1004">宿根植物</option>
+                            <option value="1005">兰科植物</option>
+                            <option value="1006">水生植物</option>
+                            <option value="1007">多肉植物</option>
+                        </select>
                         <label for="flower-price">鲜花价格:</label>
                         <input type="text" id="flower-price" name="flower-price" class="input-group">
                         <label for="flower-stock">鲜花库存:</label>
                         <input type="text" id="flower-stock" name="flower-stock" class="input-group">
                         <label for="flower-sell">鲜花售出:</label>
                         <input type="text" id="flower-sell" name="flower-sell" class="input-group">
-                        <label for="supplier-id">供应商id:</label>
-                        <input type="text" id="supplier-id" name="supplier-id" class="input-group">
+                        <label>供应商名称:</label>
+                        <select class="form-select-button input-group" name="supplier-id">
+                            <option value="1000">开心花厂</option>
+                            <option value="1001">快乐花厂</option>
+                        </select>
                     </div>
 
                     <!-- 模态框底部 -->
@@ -268,22 +280,28 @@
                     <input type="text" id="flower-id2" name="flower-id" class="input-group" value="<%=flower.getFlowerId()%>">
                     <label for="flower-name2">鲜花名称：</label>
                     <input type="text" id="flower-name2" name="flower-name" class="input-group" value="<%=flower.getFlowerName()%>">
-                    <%
-                        String typeName = new FlowerTypeDao().flowerTypeQueryOne(flower.getTypeId()).getTypeName();
-                    %>
-                    <label for="type-id2">鲜花类型id：</label>
-                    <input type="text" id="type-id2" name="type-id" class="input-group" value="<%=typeName%>">
+                    <label>鲜花类型:</label>
+                    <select class="form-select-button input-group" name="type-id">
+                        <option value="1000">草本植物</option>
+                        <option value="1001">木本植物</option>
+                        <option value="1002">藤本植物</option>
+                        <option value="1003">球根植物</option>
+                        <option value="1004">宿根植物</option>
+                        <option value="1005">兰科植物</option>
+                        <option value="1006">水生植物</option>
+                        <option value="1007">多肉植物</option>
+                    </select>
                     <label for="flower-price2">鲜花价格：</label>
                     <input type="text" id="flower-price2" name="flower-price" class="input-group" value="<%=flower.getFlowerPrice()%>">
                     <label for="flower-stock2">鲜花库存：</label>
                     <input type="text" id="flower-stock2" name="flower-stock" class="input-group" value="<%=flower.getFlowerStock()%>">
                     <label for="flower-sell2">鲜花售出：</label>
                     <input type="text" id="flower-sell2" name="flower-sell" class="input-group" value="<%=flower.getFlowerSell()%>">
-                    <%
-                        String supplierName = new SupplierDao().supplierQueryOne(flower.getSupplierId()).getSupplierName();
-                    %>
-                    <label for="supplier-id2">供应商：</label>
-                    <input type="text" id="supplier-id2" name="supplier-id" class="input-group" value="<%=supplierName%>">
+                    <label>供应商名称:</label>
+                    <select class="form-select-button input-group" name="supplier-id">
+                        <option value="1000">开心花厂</option>
+                        <option value="1001">快乐花厂</option>
+                    </select>
                     <%
                             // 用完之后移除
                             session.removeAttribute("flower-modify");
