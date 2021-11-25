@@ -3,7 +3,7 @@ target/
 
 # IDEA #
 .idea/
-*.xml
+*.iml
 
 # Java #
 out
