@@ -35,12 +35,12 @@
             </p>
         </div>
     </div>
-    <iframe src="" frameborder="0"></iframe>
+    <iframe src="flower.jsp" frameborder="0"></iframe>
 </div>
 <%@ include file="sidebar2.jsp"%>
 <script>
     $(function() {
-        toggleFrame('.home', '')
+        toggleFrame('.home', 'flower.jsp')
         toggleFrame('.flower', 'flowerService?action=queryAll')
     })
 

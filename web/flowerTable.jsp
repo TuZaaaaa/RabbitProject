@@ -8,6 +8,7 @@
 </head>
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
 <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="static/js/jquery-3.6.0.js"></script>
 <style>
     * {
         margin: 0;
@@ -24,12 +25,35 @@
         height: 350px;
     }
 
+    table {
+        text-align: center;
+    }
+
     a {
         text-decoration: none!important;
     }
 
     .highlight {
         background-color: #cbc0d3!important;
+    }
+
+    .pagination {
+        justify-content: center;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    .detail-table {
+        margin: 0 auto;
+        width: 250px;
+        height: 350px;
+        border-spacing: 30px 0;
+    }
+
+    .detail-table td {
+        text-align: center;
     }
 </style>
 <body>
@@ -57,8 +81,10 @@
 %>
     <div class="box">
         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#myModal">添加鲜花</button>
-        <button type="button" class="btn btn-outline-info"><a href="">修改鲜花</a></button>
-        <button type="button" class="btn btn-outline-danger">删除鲜花</button>
+        <button style="display:none" type="button" class="btn btn-outline-info modify" data-bs-toggle="modal" data-bs-target="#myModal2" >修改鲜花</button>
+        <button type="button" class="btn btn-outline-info modify"><a class="modifyA" href="flowerService?action=modify&flowerId=">修改鲜花</a></button>
+        <button style="display: none" type="button" class="btn btn-outline-info detail" data-bs-toggle="modal" data-bs-target="#myModal3"><a>鲜花信息</a></button>
+        <button type="button" class="btn btn-outline-danger delete"><a class="modifyB" href="flowerService?action=delete&flowerId=">删除鲜花</a></button>
         <div class="table-wrapper">
             <table class="table table-hover">
                 <thead>
@@ -81,7 +107,7 @@
                         Flower flower = flowerList.get(i);
                 %>
                 <tr>
-                    <td><a href="flowerService?action=details&flowerId=<%=flower.getFlowerId()%>"><%=flower.getFlowerId()%></a></td>
+                    <td><a class="flower-info" href="flowerService?action=detail&flowerId=<%=flower.getFlowerId()%>"><%=flower.getFlowerId()%></a></td>
                     <td><%=flower.getFlowerName()%></td>
                     <td><%=flower.getTypeId()%></td>
                     <td><%=flower.getFlowerPrice()%></td>
@@ -158,8 +184,6 @@
         <hr>
     </div>
 
-
-
 <!-- 模态框 -->
     <div class="modal" id="myModal">
         <div class="modal-dialog">
@@ -178,16 +202,16 @@
                         <input type="text" id="flower-id" name="flower-id" class="input-group">
                         <label for="flower-name">鲜花名称:</label>
                         <input type="text" id="flower-name" name="flower-name" class="input-group">
-                        <label for="flower-type">鲜花类型id:</label>
-                        <input type="text" id="flower-type" name="flower-type" class="input-group">
+                        <label for="type-id">鲜花类型id:</label>
+                        <input type="text" id="type-id" name="type-id" class="input-group">
                         <label for="flower-price">鲜花价格:</label>
                         <input type="text" id="flower-price" name="flower-price" class="input-group">
                         <label for="flower-stock">鲜花库存:</label>
                         <input type="text" id="flower-stock" name="flower-stock" class="input-group">
                         <label for="flower-sell">鲜花售出:</label>
                         <input type="text" id="flower-sell" name="flower-sell" class="input-group">
-                        <label for="flower-supplier-id">供应商id:</label>
-                        <input type="text" id="flower-supplier-id" name="flower-supplier-id" class="input-group">
+                        <label for="supplier-id">供应商id:</label>
+                        <input type="text" id="supplier-id" name="supplier-id" class="input-group">
                     </div>
 
                     <!-- 模态框底部 -->
@@ -200,15 +224,165 @@
             </div>
         </div>
     </div>
+
+
+<div class="modal" id="myModal2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- 模态框头部 -->
+            <div class="modal-header">
+                <h4 class="modal-title">修改鲜花</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- 模态框内容 -->
+            <form action="${pageContext.request.contextPath}/flowerService?action=add" method="post">
+                <div class="modal-body">
+                    <%
+                        // 判断是否执行修改操作
+                        Flower flower = (Flower) session.getAttribute("flower-modify");
+                        if(flower != null) {
+                            Integer flowerId = flower.getFlowerId();
+                    %>
+                    <script>
+                        // 模拟用户操作点击
+                        $('.table tr').eq(<%=flowerId%>).trigger('click')
+                        $('.modify').trigger('click')
+                    </script>
+                    <label for="flower-id2">鲜花id:</label>
+                    <input type="text" id="flower-id2" name="flower-id" class="input-group" value="<%=flower.getFlowerId()%>">
+                    <label for="flower-name2">鲜花名称:</label>
+                    <input type="text" id="flower-name2" name="flower-name" class="input-group" value="<%=flower.getFlowerName()%>">
+                    <label for="type-id2">鲜花类型id:</label>
+                    <input type="text" id="type-id2" name="type-id" class="input-group" value="<%=flower.getTypeId()%>">
+                    <label for="flower-price2">鲜花价格:</label>
+                    <input type="text" id="flower-price2" name="flower-price" class="input-group" value="<%=flower.getFlowerPrice()%>">
+                    <label for="flower-stock2">鲜花库存:</label>
+                    <input type="text" id="flower-stock2" name="flower-stock" class="input-group" value="<%=flower.getFlowerStock()%>">
+                    <label for="flower-sell2">鲜花售出:</label>
+                    <input type="text" id="flower-sell2" name="flower-sell" class="input-group" value="<%=flower.getFlowerSell()%>">
+                    <label for="supplier-id2">供应商id:</label>
+                    <input type="text" id="supplier-id2" name="supplier-id" class="input-group" value="<%=flower.getSupplierId()%>">
+                    <%
+                            // 用完之后移除
+                            session.removeAttribute("flower-modify");
+                        }
+                    %>
+                </div>
+
+                <!-- 模态框底部 -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal">修改</button>
+                    <button type="reset" class="btn btn-success">重置</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">关闭</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="myModal3">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- 模态框头部 -->
+            <div class="modal-header">
+                <h4 class="modal-title">鲜花信息</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- 模态框内容 -->
+            <form action="${pageContext.request.contextPath}/flowerService?action=add" method="post">
+                <div class="modal-body">
+                    <%
+                        // 判断是否执行展示详细信息操作
+                        Flower flower1 = (Flower) session.getAttribute("flower-detail");
+                        if (flower1 != null) {
+                    %>
+                    <script>
+                        // 模拟用户操作点击
+                        $('.detail').trigger('click')
+                    </script>
+                    <table class="detail-table" cellspacing="10px">
+                        <tr>
+                            <td>鲜花 id：</td>
+                            <td><%=flower1.getFlowerId()%></td>
+                        </tr>
+                        <tr>
+                            <td>鲜花名称：</td>
+                            <td><%=flower1.getFlowerName()%></td>
+                        </tr>
+                        <tr>
+                            <td>鲜花类型 id：</td>
+                            <td><%=flower1.getTypeId()%></td>
+                        </tr>
+                        <tr>
+                            <td>鲜花价格：</td>
+                            <td><%=flower1.getFlowerPrice()%></td>
+                        </tr>
+                        <tr>
+                            <td>鲜花库存：</td>
+                            <td><%=flower1.getFlowerStock()%></td>
+                        </tr>
+                        <tr>
+                            <td>鲜花售出：</td>
+                            <td><%=flower1.getFlowerSell()%></td>
+                        </tr>
+                        <tr>
+                            <td>供应商 id：</td>
+                            <td><%=flower1.getSupplierId()%></td>
+                        </tr>
+                    </table>
+                    <%
+                            session.removeAttribute("flower-detail");
+                        }
+                    %>
+                </div>
+
+                <!-- 模态框底部 -->
+                <div class="modal-footer"></div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 
-<script src="static/js/jquery-3.6.0.js"></script>
 <script>
+
     $(".table tr").click(function() {
         let selected = $(this).hasClass("highlight");
         $(".table tr").removeClass("highlight");
-        if (!selected)
+        if (!selected) {
             $(this).addClass("highlight");
+        }
+        // 选中表格项的同时，为 修改和删除按钮的 的 href 赋值
+        let id = $(this).find('.flower-info').text()
+        let src = 'flowerService?action=modify&flowerId=' + id
+        console.log(src)
+        $('.modifyA').attr('href', src)
+        $('.modifyB').attr('href', src)
     });
+
+    // 判断进行修改操作是否有选择项
+    $('.modify').click(function() {
+        if (!($('.table tr').hasClass('highlight'))) {
+            console.log('light')
+            alert('至少选择一项修改哦')
+            // 关闭模态框
+            $('#myModal2').modal('hide')
+            return false;
+        }
+    })
+
+    // 判断进行删除操作是否有选择项
+    $('.delete').click(function() {
+        if (!($('.table tr').hasClass('highlight'))) {
+            console.log('light')
+            alert('至少选择一项修改哦')
+            return false;
+        }
+    })
 </script>

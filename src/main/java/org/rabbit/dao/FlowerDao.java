@@ -55,8 +55,46 @@ public class FlowerDao {
     }
 
     /**
+     * 通过 id 查询鲜花信息
+     * @param flowerId 传入的 id
+     * @return 鲜花实体类对象 1.null 异常 2.Flower 对象 有值 3. Flower 对象无值
+     */
+    public  Flower flowerQueryOne(Integer flowerId) {
+        Flower flower = new Flower();
+        try {
+            //1. 连接数据库
+            if(connection == null || connection.isClosed()) {
+                connection = MySqlConnection.getConnection();
+            }
+            //2. 书写 sql 语句
+            sql = "select * from tb_flower where flower_id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, flowerId);
+            //3. 执行语句
+            resultSet = preparedStatement.executeQuery();
+            //4. 处理执行结果
+            if (resultSet.next()) {
+                flower.setFlowerId(resultSet.getInt(1));
+                flower.setFlowerName(resultSet.getString(2));
+                flower.setTypeId(resultSet.getInt(3));
+                flower.setFlowerPrice(resultSet.getBigDecimal(4));
+                flower.setFlowerStock(resultSet.getInt(5));
+                flower.setFlowerSell(resultSet.getInt(6));
+                flower.setSupplierId(resultSet.getInt(7));
+            }
+        } catch(SQLException e) {
+            flower = null;
+            e.printStackTrace();
+        } finally {
+            //5. 关闭数据库连接
+            MySqlConnection.closeConnection();
+        }
+        return flower;
+    }
+
+    /**
      * 返回全部鲜花信息
-     * @return
+     * @return 存储全部鲜花信息的 list 1.null 异常 2.list.size() == 0 对象 没有数据 3. size > 0 有数据
      */
     public List<Flower> flowerQueryAll() {
         List<Flower> flowerList = new ArrayList<>();
@@ -91,4 +129,13 @@ public class FlowerDao {
         }
         return flowerList;
     }
+
+    /**
+     * 根据 id 删除指定鲜花信息
+     * @param flowerId 传入的鲜花 id
+     */
+    public void delete(Integer flowerId) {
+        
+    }
+
 }

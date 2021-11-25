@@ -23,8 +23,10 @@ public class FlowerService extends HttpServlet {
      */
     static final String ADD = "add";
     static final String MODIFY = "modify";
-    static final String DELETE = "delete";
     static final String QUERY_ALL = "queryAll";
+    static final String DETAIL = "detail";
+    static final String DELETE = "delete";
+
 
     FlowerDao flowerDao = new FlowerDao();
 
@@ -35,7 +37,7 @@ public class FlowerService extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+        resp.setContentType("text/html;charset=utf-8");
         String action = req.getParameter("action");
         System.out.println(action);
         if(action == null || "".equals(action)) {
@@ -57,8 +59,26 @@ public class FlowerService extends HttpServlet {
                 req.getSession().setAttribute("flowerList", flowerList);
                 resp.sendRedirect("flowerTable.jsp");
                 break;
+            case MODIFY:
+                System.out.println("modify");
+                Integer flowerId = Integer.valueOf(req.getParameter("flowerId"));
+                Flower flower = flowerDao.flowerQueryOne(flowerId);
+                req.getSession().setAttribute("flower-modify", flower);
+                resp.sendRedirect("flowerTable.jsp");
+                break;
+            case DETAIL:
+                System.out.println("detail");
+                Integer flowerId1 = Integer.valueOf(req.getParameter("flowerId"));
+                Flower flower1 = flowerDao.flowerQueryOne(flowerId1);
+                req.getSession().setAttribute("flower-detail", flower1);
+                resp.sendRedirect("flowerTable.jsp");
+                break;
+            case DELETE:
+                System.out.println("delete");
+                Integer flowerId2 = Integer.valueOf(req.getParameter("flowerId"));
+                resp.sendRedirect("flowerTable.jsp");
+                break;
             default:
-
         }
     }
 
@@ -68,6 +88,15 @@ public class FlowerService extends HttpServlet {
     protected void flowerAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 1.接收数据
         Integer flowerId = Integer.valueOf(req.getParameter("flower-id"));
+        Flower temp = flowerDao.flowerQueryOne(flowerId);
+        if (temp == null) {
+            System.out.println("异常");
+            return;
+        }
+        if (temp.getFlowerId() != null) {
+            resp.getWriter().println("<script>alert('鲜花编号已经存在');history.go(-1)</script>");
+            return;
+        }
         String flowerName = req.getParameter("flower-name");
         int typeId = Integer.parseInt(req.getParameter("type-id"));
         BigDecimal flowerPrice = new BigDecimal(req.getParameter("flower-price"));
@@ -80,9 +109,9 @@ public class FlowerService extends HttpServlet {
         int rel = flowerDao.flowerAdd(flower);
         // 4.处理结果
         if(rel == 1) {
-            resp.getWriter().println("<script>alert('success')</script>");
+            resp.getWriter().println("<script>alert('添加成功');history.go(-1)</script>");
         } else{
-            resp.getWriter().println("<script>alert('添加失败')</script>");
+            resp.getWriter().println("<script>alert('添加失败');history.go(-1)</script>");
         }
     }
 }

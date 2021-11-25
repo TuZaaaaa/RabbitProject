@@ -97,7 +97,7 @@
         </div>
     </div>
     <div class="box">
-        <div class="title"><a href="login.jsp" target="top">退出系统</a></div>
+        <div class="title"><a href="userService?action=logout" target="top">退出系统</a></div>
     </div>
 </body>
 </html>
