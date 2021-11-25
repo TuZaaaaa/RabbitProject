@@ -306,9 +306,9 @@
                     <input type="text" name="user_name" placeholder="请输入用户名" required>
                     <input type="password" name="user_password" placeholder="请输入密码" required>
                     <span class="user">
-                        <input type="radio" id="user_admin" name="user_flag" value="1">
+                        <input type="radio" id="user_admin" name="user_flag" value="1" checked="checked">
                         <label for="user_admin">管理员</label>
-                        <input type="radio" id="user_flag" name="user_flag" value="0" checked="checked">
+                        <input type="radio" id="user_flag" name="user_flag" value="0">
                         <label for="user_flag">用户</label>
                     </span>
                     <span class="code">
