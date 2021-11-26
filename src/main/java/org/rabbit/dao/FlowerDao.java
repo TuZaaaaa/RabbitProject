@@ -133,9 +133,65 @@ public class FlowerDao {
     /**
      * 根据 id 删除指定鲜花信息
      * @param flowerId 传入的鲜花 id
+     * @return int 1:成功 0:失败
      */
-    public void delete(Integer flowerId) {
-        
+    public int flowerDelete(Integer flowerId) {
+        int rel = 0;
+        try {
+            //1. 连接数据库
+            if(connection == null || connection.isClosed()) {
+                connection = MySqlConnection.getConnection();
+            }
+            //2. 书写 sql 语句
+            sql = "delete from tb_flower where flower_id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, flowerId);
+            //3. 执行语句
+            rel = preparedStatement.executeUpdate();
+            //4. 处理执行结果
+        } catch(SQLException e) {
+            rel = -1;
+            e.printStackTrace();
+        } finally {
+            //5. 关闭数据库连接
+            MySqlConnection.closeConnection();
+        }
+        return rel;
     }
 
+
+    /**
+     * 根据 id 修改指定鲜花信息
+     * @param flower 传入的鲜花实体类对象
+     * @return int 1:成功 0:失败
+     */
+    public int flowerUpdate(Flower flower) {
+        int rel = 0;
+        try {
+            //1. 连接数据库
+            if(connection == null || connection.isClosed()) {
+                connection = MySqlConnection.getConnection();
+            }
+            //2. 书写 sql 语句
+            sql = "update tb_flower set flower_name = ?, type_id = ?, flower_price = ?, flower_stock = ?, flower_sell = ?, supplier_id = ? where flower_id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, flower.getFlowerName());
+            preparedStatement.setInt(2, flower.getTypeId());
+            preparedStatement.setBigDecimal(3, flower.getFlowerPrice());
+            preparedStatement.setInt(4, flower.getFlowerStock());
+            preparedStatement.setInt(5, flower.getFlowerSell());
+            preparedStatement.setInt(6, flower.getSupplierId());
+            preparedStatement.setInt(7, flower.getFlowerId());
+            //3. 执行语句
+            rel = preparedStatement.executeUpdate();
+            //4. 处理执行结果
+        } catch(SQLException e) {
+            rel = -1;
+            e.printStackTrace();
+        } finally {
+            //5. 关闭数据库连接
+            MySqlConnection.closeConnection();
+        }
+        return rel;
+    }
 }

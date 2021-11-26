@@ -58,11 +58,11 @@
         text-align: center;
     }
 
-    .modifyB {
+    .delete {
         color: #ff0000;
     }
 
-    .modifyB:hover {
+    .delete:hover {
         color: #fff;
     }
 </style>
@@ -92,9 +92,10 @@
     <div class="box">
         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#myModal">添加鲜花</button>
         <button style="display:none" type="button" class="btn btn-outline-info modify" data-bs-toggle="modal" data-bs-target="#myModal2" >修改鲜花</button>
-        <button type="button" class="btn btn-outline-info modify"><a class="modifyA" href="flowerService?action=modify&flowerId=">修改鲜花</a></button>
+        <button type="button" class="btn btn-outline-info modifyBtn"><a class="modifyA" href="flowerService?action=modify&flowerId=">修改鲜花</a></button>
         <button style="display: none" type="button" class="btn btn-outline-info detail" data-bs-toggle="modal" data-bs-target="#myModal3"><a>鲜花信息</a></button>
-        <button type="button" class="btn btn-outline-danger delete"><a class="modifyB" href="flowerService?action=delete&flowerId=">删除鲜花</a></button>
+        <button type="button" class="btn btn-outline-danger deleteBtn"><a class="delete" href="flowerService?action=delete&flowerId=">删除鲜花</a></button>
+        <button type="button" class="btn btn-outline-primary flowerReloadBtn" onclick="document.location.href='flowerService?action=queryAll'">刷新</button>
         <div class="table-wrapper">
             <table class="table table-hover">
                 <thead>
@@ -263,7 +264,7 @@
             </div>
 
             <!-- 模态框内容 -->
-            <form action="${pageContext.request.contextPath}/flowerService?action=add" method="post">
+            <form action="${pageContext.request.contextPath}/flowerService?action=update" method="post">
                 <div class="modal-body">
                     <%
                         // 判断是否执行修改操作
@@ -277,7 +278,7 @@
                         $('.modify').trigger('click')
                     </script>
                     <label for="flower-id2">鲜花id：</label>
-                    <input type="text" id="flower-id2" name="flower-id" class="input-group" value="<%=flower.getFlowerId()%>">
+                    <input type="text" id="flower-id2" name="flower-id" class="input-group" readonly value="<%=flower.getFlowerId()%>">
                     <label for="flower-name2">鲜花名称：</label>
                     <input type="text" id="flower-name2" name="flower-name" class="input-group" value="<%=flower.getFlowerName()%>">
                     <label>鲜花类型:</label>
@@ -389,7 +390,7 @@
 </html>
 
 <script>
-    // 为表格内容添加点击时间（高亮显示）
+    // 为表格内容添加点击事件（高亮显示）
     $(".table .content").click(function() {
         let selected = $(this).hasClass("highlight");
         $(".table .content").removeClass("highlight");
@@ -398,14 +399,14 @@
         }
         // 选中表格项的同时，为 修改和删除按钮的 的 href 赋值
         let id = $(this).find('.flower-info').text()
-        let src = 'flowerService?action=modify&flowerId=' + id
-        console.log(src)
-        $('.modifyA').attr('href', src)
-        $('.modifyB').attr('href', src)
+        let modifySrc = 'flowerService?action=modify&flowerId=' + id
+        let deleteSrc = 'flowerService?action=delete&flowerId=' + id
+        $('.modifyA').attr('href', modifySrc)
+        $('.delete').attr('href', deleteSrc)
     });
 
     // 判断进行修改操作是否有选择项
-    $('.modify').click(function() {
+    $('.modifyBtn').click(function() {
         if (!($('.table tr').hasClass('highlight'))) {
             console.log('light')
             alert('至少选择一项修改哦')
@@ -416,11 +417,20 @@
     })
 
     // 判断进行删除操作是否有选择项
-    $('.delete').click(function() {
+    $('.deleteBtn').click(function() {
         if (!($('.table tr').hasClass('highlight'))) {
             console.log('light')
             alert('至少选择一项删除哦')
-            return false;
+            return false
+        } else {
+            console.log('aa')
+            // 获取高亮项 id
+            let id = $('.highlight').find('.flower-info').text();
+            console.log(id)
+            let confirm = window.confirm('确认要删除 id 为【' + id + '】这项数据吗？')
+            if(!confirm) {
+                return false
+            }
         }
     })
 </script>

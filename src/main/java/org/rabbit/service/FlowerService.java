@@ -22,7 +22,14 @@ public class FlowerService extends HttpServlet {
      * 用于判断请求的操作
      */
     static final String ADD = "add";
+    /**
+     * 用于传输回显的数据
+     */
     static final String MODIFY = "modify";
+    /**
+     * 用于更新数据
+     */
+    static final String UPDATE = "update";
     static final String QUERY_ALL = "queryAll";
     static final String DETAIL = "detail";
     static final String DELETE = "delete";
@@ -66,6 +73,10 @@ public class FlowerService extends HttpServlet {
                 req.getSession().setAttribute("flower-modify", flower);
                 resp.sendRedirect("flowerTable.jsp");
                 break;
+            case UPDATE:
+                System.out.println("update");
+                flowerUpdate(req, resp);
+                break;
             case DETAIL:
                 System.out.println("detail");
                 Integer flowerId1 = Integer.valueOf(req.getParameter("flowerId"));
@@ -76,7 +87,13 @@ public class FlowerService extends HttpServlet {
             case DELETE:
                 System.out.println("delete");
                 Integer flowerId2 = Integer.valueOf(req.getParameter("flowerId"));
-                resp.sendRedirect("flowerTable.jsp");
+                int rel = flowerDao.flowerDelete(flowerId2);
+                System.out.println("rel = " + rel);
+                if(rel == 1) {
+                    resp.getWriter().println("<script>alert('删除成功');history.go(-1)</script>");
+                } else{
+                    resp.getWriter().println("<script>alert('删除失败');history.go(-1)</script>");
+                }
                 break;
             default:
         }
@@ -112,6 +129,29 @@ public class FlowerService extends HttpServlet {
             resp.getWriter().println("<script>alert('添加成功');history.go(-1)</script>");
         } else{
             resp.getWriter().println("<script>alert('添加失败');history.go(-1)</script>");
+        }
+    }
+
+    /**
+     * 修改鲜花信息
+     */
+    protected void flowerUpdate(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        // 1.接收数据
+        Integer flowerId = Integer.parseInt(req.getParameter("flower-id"));
+        String flowerName = req.getParameter("flower-name");
+        int typeId = Integer.parseInt(req.getParameter("type-id"));
+        BigDecimal flowerPrice = new BigDecimal(req.getParameter("flower-price"));
+        int flowerStock = Integer.parseInt(req.getParameter("flower-stock"));
+        int flowerSell = Integer.parseInt(req.getParameter("flower-sell"));
+        int supplierId = Integer.parseInt(req.getParameter("supplier-id"));
+        Flower flower = new Flower(flowerId, flowerName, typeId, flowerPrice, flowerStock, flowerSell, supplierId);
+        // 3.调用方法完成修改
+        int rel = flowerDao.flowerUpdate(flower);
+        // 4.处理结果
+        if(rel == 1) {
+            resp.getWriter().println("<script>alert('修改成功');history.go(-1)</script>");
+        } else{
+            resp.getWriter().println("<script>alert('修改失败');history.go(-1)</script>");
         }
     }
 }
