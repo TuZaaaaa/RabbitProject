@@ -6,12 +6,15 @@ package org.rabbit.vo;
 public class FlowerType {
     private Integer typeId;
     private String typeName;
+    private String typeDepict;
 
     public FlowerType() {
     }
 
-    public FlowerType(String typeName) {
+    public FlowerType(Integer typeId, String typeName, String typeDepict) {
+        this.typeId = typeId;
         this.typeName = typeName;
+        this.typeDepict = typeDepict;
     }
 
     public Integer getTypeId() {
@@ -28,5 +31,13 @@ public class FlowerType {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    public String getTypeDepict() {
+        return typeDepict;
+    }
+
+    public void setTypeDepict(String typeDepict) {
+        this.typeDepict = typeDepict;
     }
 }

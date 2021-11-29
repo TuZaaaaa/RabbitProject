@@ -90,9 +90,11 @@ public class FlowerService extends HttpServlet {
                 int rel = flowerDao.flowerDelete(flowerId2);
                 System.out.println("rel = " + rel);
                 if(rel == 1) {
-                    resp.getWriter().println("<script>alert('删除成功');history.go(-1)</script>");
+                    resp.getWriter().println("<script>alert('删除成功')</script>");
+                    resp.sendRedirect("flowerService?action=queryAll");
                 } else{
-                    resp.getWriter().println("<script>alert('删除失败');history.go(-1)</script>");
+                    resp.getWriter().println("<script>alert('删除失败')</script>");
+                    resp.sendRedirect("flowerService?action=queryAll");
                 }
                 break;
             default:
@@ -126,7 +128,8 @@ public class FlowerService extends HttpServlet {
         int rel = flowerDao.flowerAdd(flower);
         // 4.处理结果
         if(rel == 1) {
-            resp.getWriter().println("<script>alert('添加成功');history.go(-1)</script>");
+            resp.getWriter().println("<script>alert('添加成功');</script>");
+            resp.sendRedirect("flowerService?action=queryAll");
         } else{
             resp.getWriter().println("<script>alert('添加失败');history.go(-1)</script>");
         }
@@ -149,7 +152,8 @@ public class FlowerService extends HttpServlet {
         int rel = flowerDao.flowerUpdate(flower);
         // 4.处理结果
         if(rel == 1) {
-            resp.getWriter().println("<script>alert('修改成功');history.go(-1)</script>");
+            resp.getWriter().println("<script>alert('修改成功')</script>");
+            resp.sendRedirect("flowerService?action=queryAll");
         } else{
             resp.getWriter().println("<script>alert('修改失败');history.go(-1)</script>");
         }

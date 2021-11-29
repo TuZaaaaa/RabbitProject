@@ -95,7 +95,6 @@
         <button type="button" class="btn btn-outline-info modifyBtn"><a class="modifyA" href="flowerService?action=modify&flowerId=">修改鲜花</a></button>
         <button style="display: none" type="button" class="btn btn-outline-info detail" data-bs-toggle="modal" data-bs-target="#myModal3"><a>鲜花信息</a></button>
         <button type="button" class="btn btn-outline-danger deleteBtn"><a class="delete" href="flowerService?action=delete&flowerId=">删除鲜花</a></button>
-        <button type="button" class="btn btn-outline-primary flowerReloadBtn" onclick="document.location.href='flowerService?action=queryAll'">刷新</button>
         <div class="table-wrapper">
             <table class="table table-hover">
                 <thead>

@@ -1,5 +1,7 @@
 package org.rabbit.vo;
 
+import java.sql.Date;
+
 /**
  * @author Rabbit
  */
@@ -8,16 +10,18 @@ public class Order {
     private int flowerId;
     private String orderAddress;
     private String orderDepict;
+    private Date orderTime;
     private int orderFlag;
 
     public Order() {
     }
 
-    public Order(Integer orderId, int flowerId, String orderAddress, String orderDepict, int orderFlag) {
+    public Order(Integer orderId, int flowerId, String orderAddress, String orderDepict, Date orderTime, int orderFlag) {
         this.orderId = orderId;
         this.flowerId = flowerId;
         this.orderAddress = orderAddress;
         this.orderDepict = orderDepict;
+        this.orderTime = orderTime;
         this.orderFlag = orderFlag;
     }
 
@@ -51,6 +55,14 @@ public class Order {
 
     public void setOrderDepict(String orderDepict) {
         this.orderDepict = orderDepict;
+    }
+
+    public Date getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(Date orderTime) {
+        this.orderTime = orderTime;
     }
 
     public int getOrderFlag() {
