@@ -1,6 +1,6 @@
 package org.rabbit.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author Rabbit
@@ -14,6 +14,14 @@ public class Order {
     private int orderFlag;
 
     public Order() {
+    }
+
+    public Order(Integer orderId, int flowerId, String orderAddress, String orderDepict, int orderFlag) {
+        this.orderId = orderId;
+        this.flowerId = flowerId;
+        this.orderAddress = orderAddress;
+        this.orderDepict = orderDepict;
+        this.orderFlag = orderFlag;
     }
 
     public Order(Integer orderId, int flowerId, String orderAddress, String orderDepict, Date orderTime, int orderFlag) {

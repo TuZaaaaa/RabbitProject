@@ -35,31 +35,41 @@
             <li>
                 <a href="#" class="home"><i class="fa fa-fw fa-home"></i>主页</a>
             </li>
+            <%
+//                User user = (User) session.getAttribute("user");
+                int userFlag = user.getUserFlag();
+                if("1".equals(String.valueOf(userFlag))) {
+            %>
             <li>
                 <a href="#" class="flower"><i class="fa fa-fw fa-cog"></i>鲜花管理</a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-fw fa-file-o"></i>鲜花种类管理</a>
+                <a href="#" class="flowerType"><i class="fa fa-fw fa-file-code-o"></i>鲜花种类管理</a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-fw fa-cog"></i>供应商管理</a>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i> 用户管理<span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li class="dropdown-header">Action</li>
-                    <li><a href="#">用户添加</a></li>
-                </ul>
+                <a href="#" class="supplier"><i class="fa fa-fw fa-cog"></i>供应商管理</a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-fw fa-dropbox"></i>订单管理</a>
+                <a href="#" class="userService"><i class="fa fa-fw fa-user"></i>用户管理</a>
+            </li>
+            <li>
+                <a href="#" class="orderService"><i class="fa fa-fw fa-file-o"></i>订单管理</a>
+            </li>
+            <%
+                }
+            %>
+            <li>
+                <a href="#" class="userInfo"><i class="fa fa-fw fa-user-md"></i>个人信息管理</a>
+            </li>
+            <li>
+                <a href="#" class="shopping"><i class="fa fa-fw fa-shopping-cart"></i>鲜花购买</a>
             </li>
             <li>
                 <a href="login.jsp"><i class="fa fa-fw fa-twitter"></i>退出系统</a>
             </li>
         </ul>
     </nav>
-    <!-- /#sidebar-wrapper -->
+    <!-- sidebar-wrapper -->
 
     <!-- Page Content -->
     <div id="page-content-wrapper">

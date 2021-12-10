@@ -1,6 +1,3 @@
-<%@ page import="java.sql.Connection" %>
-<%@ page import="org.rabbit.util.MySqlConnection" %>
-<%@ page import="org.rabbit.util.JdbcUtils" %>
 <%--
   Created by IntelliJ IDEA.
   User: Rabbit

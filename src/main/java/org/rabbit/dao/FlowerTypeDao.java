@@ -55,7 +55,7 @@ public class FlowerTypeDao {
      * @param typeId 传入的鲜花类型 id
      * @return int 1:成功 0:失败
      */
-    public int flowerDelete(Integer typeId) {
+    public int flowerTypeDelete(Integer typeId) {
         int rel = 0;
         try {
             //1. 连接数据库
@@ -85,7 +85,7 @@ public class FlowerTypeDao {
      * @param flowerType 传入的鲜花类型实体类对象
      * @return int 1:成功 0:失败
      */
-    public int flowerUpdate(FlowerType flowerType) {
+    public int flowerTypeUpdate(FlowerType flowerType) {
         int rel = 0;
         try {
             //1. 连接数据库

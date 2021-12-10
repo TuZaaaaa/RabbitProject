@@ -1,7 +1,6 @@
 package org.rabbit.dao;
 
 import org.rabbit.util.MySqlConnection;
-import org.rabbit.vo.FlowerType;
 import org.rabbit.vo.User;
 
 import java.sql.Connection;
@@ -38,6 +37,13 @@ public class UserDao {
             preparedStatement.setInt(3, user.getUserFlag());
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
+                user.setUserId(resultSet.getInt(1));
+                user.setUserName(resultSet.getString(2));
+                user.setUserPassword(resultSet.getString(3));
+                user.setUserTelephone(resultSet.getString(4));
+                user.setUserEmail(resultSet.getString(5));
+                user.setUserAddress(resultSet.getString(6));
+                user.setUserFlag(resultSet.getInt(7));
                 System.out.println("登录成功");
             } else {
                 System.out.println("登录失败");
@@ -131,7 +137,7 @@ public class UserDao {
                 connection = MySqlConnection.getConnection();
             }
             //2. 书写 sql 语句
-            sql = "update tb_user set user_name = ?, user_password = ?, user_telephone = ?, user_email = ?, user_address = ?, user_flag = ? where users_id = ?";
+            sql = "update tb_user set user_name = ?, user_password = ?, user_telephone = ?, user_email = ?, user_address = ?, user_flag = ? where user_id = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getUserName());
             preparedStatement.setString(2, user.getUserPassword());

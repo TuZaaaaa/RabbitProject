@@ -65,10 +65,24 @@
     .delete:hover {
         color: #fff;
     }
+
+    .first-group > * {
+        margin: 0 10px;
+    }
+
+    .input-name {
+        width: 10px!important;
+    }
 </style>
 <body>
 
 <%
+    String backName = (String) session.getAttribute("back-flower");
+    String backType = (String) session.getAttribute("back-type");
+    String backSupplier = (String) session.getAttribute("back-supplier");
+    System.out.println(backName + "name");
+    System.out.println(backType + "type");
+    System.out.println(backSupplier + "supplier");
     List<Flower> flowerList = (List<Flower>) session.getAttribute("flowerList");
     // 1.定义总记录数
     int totalRows = flowerList.size();
@@ -87,14 +101,62 @@
 
     // 5.书写分页查询语句
     int start = (index - 1) * pageSize;
-    String sql = "select * from tb_flower order by goodsID limit "+ start +", " + pageSize;
 %>
     <div class="box">
+        <div class="input-group first-group">
         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#myModal">添加鲜花</button>
-        <button style="display:none" type="button" class="btn btn-outline-info modify" data-bs-toggle="modal" data-bs-target="#myModal2" >修改鲜花</button>
-        <button type="button" class="btn btn-outline-info modifyBtn"><a class="modifyA" href="flowerService?action=modify&flowerId=">修改鲜花</a></button>
-        <button style="display: none" type="button" class="btn btn-outline-info detail" data-bs-toggle="modal" data-bs-target="#myModal3"><a>鲜花信息</a></button>
-        <button type="button" class="btn btn-outline-danger deleteBtn"><a class="delete" href="flowerService?action=delete&flowerId=">删除鲜花</a></button>
+            <button style="display:none" type="button" class="btn btn-outline-info modify" data-bs-toggle="modal" data-bs-target="#myModal2" >修改鲜花</button>
+            <button type="button" class="btn btn-outline-info modifyBtn"><a class="modifyA" href="flowerService?action=modify&flowerId=">修改鲜花</a></button>
+            <button style="display: none" type="button" class="btn btn-outline-info detail" data-bs-toggle="modal" data-bs-target="#myModal3"><a>鲜花信息</a></button>
+            <button type="button" class="btn btn-outline-danger deleteBtn"><a class="delete" href="flowerService?action=delete&flowerId=">删除鲜花</a></button>
+            <form action="flowerService?action=queryMultiple" method="post">
+                <input type="text" class="input-group-sm" name="flower-name" id="flower-name3" placeholder="请输入要搜索的名称">
+                <select class="input-group-sm" name="type-id" id="type-id3">
+                    <option value="">请选择类型</option>
+                    <option value="1000">草本植物</option>
+                    <option value="1001">木本植物</option>
+                    <option value="1002">藤本植物</option>
+                    <option value="1003">球根植物</option>
+                    <option value="1004">宿根植物</option>
+                    <option value="1005">兰科植物</option>
+                    <option value="1006">水生植物</option>
+                    <option value="1007">多肉植物</option>
+                </select>
+                <select class="form-select-sm" name="supplier-id" id="supplier-id3">
+                    <option value="">请选择供应商</option>
+                    <option value="1000">开心花厂</option>
+                    <option value="1001">快乐花厂</option>
+                </select>
+                <script>
+                    <%
+                        if (backName != null && !("".equals(backName))) {
+                    %>
+                        document.querySelector('#flower-name3').value = "<%=backName%>";
+                    <%
+                        }
+                    %>
+                    <%
+                        if (backType != null && !(backType.equals(""))) {
+                    %>
+                        document.querySelector('#type-id3').options[<%=Integer.parseInt(backType) - 999%>].selected = true;
+                    <%
+                        }
+                    %>
+                    <%
+                        if (backSupplier != null && !(backSupplier.equals(""))) {
+                    %>
+                        document.querySelector('#supplier-id3').options[<%=Integer.parseInt(backSupplier) - 999%>].selected = true;
+                    <%
+                        }
+
+                    session.removeAttribute("back-flower");
+                    session.removeAttribute("back-type");
+                    session.removeAttribute("back-supplier");
+                    %>
+                </script>
+                <button type="submit" class="btn btn-outline-warning">搜索</button>
+            </form>
+        </div>
         <div class="table-wrapper">
             <table class="table table-hover">
                 <thead>
@@ -109,6 +171,17 @@
                 </tr>
                 </thead>
                 <tbody>
+                    <%
+                        if (totalRows == 0) {
+
+                    %>
+                    <td  colspan="7">
+                        当前搜索结果无数据
+                    </td>
+                    <%
+                            return;
+                        }
+                    %>
                 <%
                     for (int i = start;i < start + pageSize;i++) {
                         if (i == flowerList.size()) {
@@ -281,7 +354,7 @@
                     <label for="flower-name2">鲜花名称：</label>
                     <input type="text" id="flower-name2" name="flower-name" class="input-group" value="<%=flower.getFlowerName()%>">
                     <label>鲜花类型:</label>
-                    <select class="form-select-button input-group" name="type-id">
+                    <select class="form-select-button input-group typeSelect" name="type-id">
                         <option value="1000">草本植物</option>
                         <option value="1001">木本植物</option>
                         <option value="1002">藤本植物</option>
@@ -291,6 +364,14 @@
                         <option value="1006">水生植物</option>
                         <option value="1007">多肉植物</option>
                     </select>
+
+                    <script>
+                        <%
+                            int typeId = flower.getTypeId();
+                        %>
+                        document.querySelector('.typeSelect').options[<%=typeId - 1000%>].selected = true;
+                    </script>
+
                     <label for="flower-price2">鲜花价格：</label>
                     <input type="text" id="flower-price2" name="flower-price" class="input-group" value="<%=flower.getFlowerPrice()%>">
                     <label for="flower-stock2">鲜花库存：</label>
@@ -298,10 +379,16 @@
                     <label for="flower-sell2">鲜花售出：</label>
                     <input type="text" id="flower-sell2" name="flower-sell" class="input-group" value="<%=flower.getFlowerSell()%>">
                     <label>供应商名称:</label>
-                    <select class="form-select-button input-group" name="supplier-id">
+                    <select class="form-select-button input-group supplierSelect" name="supplier-id">
                         <option value="1000">开心花厂</option>
                         <option value="1001">快乐花厂</option>
                     </select>
+                    <script>
+                        <%
+                            int supplierId = flower.getSupplierId();
+                        %>
+                        document.querySelector('.supplierSelect').options[<%=supplierId - 1000%>].selected = true;
+                    </script>
                     <%
                             // 用完之后移除
                             session.removeAttribute("flower-modify");

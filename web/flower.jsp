@@ -17,6 +17,6 @@
     }
 </style>
 <body>
-
+<img src="${pageContext.request.contextPath}/static/img/flowerBg.jpg" width="100%" height="100%">
 </body>
 </html>

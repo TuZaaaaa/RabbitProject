@@ -194,5 +194,40 @@ public class FlowerDao {
         }
         return flowerList;
     }
-
+    /**
+     * 返回全部鲜花信息（多条件查询）
+     * @return 存储全部鲜花信息的 list 1.null 异常 2.list.size() == 0 对象 没有数据 3. size > 0 有数据
+     */
+    public List<Flower> flowerQueryMultiple(String sql) {
+        List<Flower> flowerList = new ArrayList<>();
+        try {
+            //1. 连接数据库
+            if(connection == null || connection.isClosed()) {
+                connection = MySqlConnection.getConnection();
+            }
+            //2. 书写 sql 语句
+            preparedStatement = connection.prepareStatement(sql);
+            //3. 执行语句
+            resultSet = preparedStatement.executeQuery();
+            //4. 处理执行结果
+            while (resultSet.next()) {
+                Flower flower = new Flower();
+                flower.setFlowerId(resultSet.getInt(1));
+                flower.setFlowerName(resultSet.getString(2));
+                flower.setTypeId(resultSet.getInt(3));
+                flower.setFlowerPrice(resultSet.getBigDecimal(4));
+                flower.setFlowerStock(resultSet.getInt(5));
+                flower.setFlowerSell(resultSet.getInt(6));
+                flower.setSupplierId(resultSet.getInt(7));
+                flowerList.add(flower);
+            }
+        } catch(SQLException e) {
+            flowerList = null;
+            e.printStackTrace();
+        } finally {
+            //5. 关闭数据库连接
+            MySqlConnection.closeConnection();
+        }
+        return flowerList;
+    }
 }

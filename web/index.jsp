@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@include file="checkUserLogin.jsp"%>
 <%@ include file="sidebar1.jsp"%>
 <style>
     h1 {
@@ -24,7 +25,6 @@
     }
 </style>
 <script src="static/js/date.js"></script>
-<%@include file="checkUserLogin.jsp"%>
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2">
@@ -42,6 +42,12 @@
     $(function() {
         toggleFrame('.home', 'flower.jsp')
         toggleFrame('.flower', 'flowerService?action=queryAll')
+        toggleFrame('.flowerType', 'flowerTypeService?action=queryAll')
+        toggleFrame('.supplier', 'supplierService?action=queryAll')
+        toggleFrame('.userService', 'userService?action=queryAll')
+        toggleFrame('.orderService', 'orderService?action=queryAll')
+        toggleFrame('.userInfo', 'userInfo.jsp')
+        toggleFrame('.shopping', 'flowerService?action=shopping')
     })
 
     function toggleFrame(target, src) {
